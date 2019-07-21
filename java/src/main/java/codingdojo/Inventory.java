@@ -1,13 +1,13 @@
 package codingdojo;
 
 public class Inventory {
-    private Equipment equipment;
+  private final Equipment equipment;
 
-    public Inventory(Equipment equipment) {
-        this.equipment = equipment;
-    }
+  public Inventory(final Equipment equipment) {
+    this.equipment = equipment;
+  }
 
-    Equipment getEquipment() {
-        return equipment;
-    }
+  Equipment getEquipment() {
+    return equipment;
+  }
 }
