@@ -14,33 +14,33 @@ public class PlayerTest {
   @Ignore("Test is not finished yet")
   @Test
   public void damageCalculationsWithMocks() {
-    Inventory inventory = mock(Inventory.class);
-    Stats stats = mock(Stats.class);
-    SimpleEnemy target = mock(SimpleEnemy.class);
+    final Inventory inventory = mock(Inventory.class);
+    final Stats stats = mock(Stats.class);
+    final SimpleEnemy target = mock(SimpleEnemy.class);
 
-    Damage damage = new Player(inventory, stats).calculateDamage(target);
+    final Damage damage = new Player(inventory, stats).calculateDamage(target);
     assertEquals(10, damage.getAmount());
   }
 
   // choose this one if you are not familiar with mocks
   @Test
   public void damageCalculations() {
-    Inventory inventory = new Inventory(defaultEquipment());
-    Stats stats = new Stats(10);
-    SimpleEnemy target = simpleEnemy();
-    Damage damage = new Player(inventory, stats).calculateDamage(target);
+    final Inventory inventory = new Inventory(defaultEquipment());
+    final Stats stats = new Stats(10);
+    final SimpleEnemy target = simpleEnemy();
+    final Damage damage = new Player(inventory, stats).calculateDamage(target);
     assertEquals(10, damage.getAmount());
   }
 
-  private SimpleEnemy simpleEnemy() {
-    return new SimpleEnemy(new SimpleArmor(5), Collections.singletonList(new BasicBuff(1f, 1f)));
+  private static SimpleEnemy simpleEnemy() {
+    return new SimpleEnemy(new SimpleArmor(5), new Buffs(Collections.singletonList(new BasicBuff(1f, 1f))));
   }
 
-  private Equipment defaultEquipment() {
+  private static Equipment defaultEquipment() {
     return new Equipment(basicItem(), new BasicItem(10, 1), basicItem(), basicItem(), basicItem());
   }
 
-  private BasicItem basicItem() {
+  private static BasicItem basicItem() {
     return new BasicItem(0, 0);
   }
 }
