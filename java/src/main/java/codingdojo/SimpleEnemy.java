@@ -19,4 +19,21 @@ public class SimpleEnemy extends Target {
   Armor getArmor() {
     return armor;
   }
+
+  @Override
+  protected int getSoak(final int totalDamage) {
+    final int soak;
+    final SimpleEnemy simpleEnemy = this;
+    soak = Math.round(
+      simpleEnemy.getArmor().getDamageSoak() *
+        (
+          ((float) simpleEnemy.getBuffs()
+            .stream()
+            .mapToDouble(Buff::soakModifier)
+            .sum()) +
+            1f
+        )
+    );
+    return soak;
+  }
 }
