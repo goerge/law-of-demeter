@@ -1,9 +1,8 @@
 package codingdojo;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -16,11 +15,13 @@ public class PlayerTest {
   public void damageCalculationsWithMocks() {
     final Inventory inventory = mock(Inventory.class);
     when(inventory.getBaseDamage()).thenReturn(10);
-    when(inventory.getDamageModifier()).thenReturn(0.9f);
+    when(inventory.getDamageModifier()).thenReturn(1f);
+
     final Stats stats = mock(Stats.class);
-    when(stats.getStrengthModifier()).thenReturn(0.1f);
+    when(stats.getStrengthModifier()).thenReturn(1f);
+
     final SimpleEnemy target = mock(SimpleEnemy.class);
-    when(target.getSoak(anyInt())).thenReturn(0);
+    when(target.getSoak(anyInt())).thenReturn(10);
 
     final Damage damage = new Player(inventory, stats).calculateDamage(target);
     assertEquals(10, damage.getAmount());
@@ -32,12 +33,13 @@ public class PlayerTest {
     final Inventory inventory = new Inventory(defaultEquipment());
     final Stats stats = new Stats(10);
     final SimpleEnemy target = simpleEnemy();
+
     final Damage damage = new Player(inventory, stats).calculateDamage(target);
     assertEquals(10, damage.getAmount());
   }
 
   private static SimpleEnemy simpleEnemy() {
-    return new SimpleEnemy(new SimpleArmor(5), new Buffs(Collections.singletonList(new BasicBuff(1f, 1f))));
+    return new SimpleEnemy(new SimpleArmor(5), new Buffs(asList(new BasicBuff(1f, 1f))));
   }
 
   private static Equipment defaultEquipment() {
