@@ -2,21 +2,25 @@ package codingdojo;
 
 import java.util.Collections;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PlayerTest {
 
   // choose this one if you are familiar with mocks
-  @Ignore("Test is not finished yet")
   @Test
   public void damageCalculationsWithMocks() {
     final Inventory inventory = mock(Inventory.class);
+    when(inventory.getBaseDamage()).thenReturn(10);
+    when(inventory.getDamageModifier()).thenReturn(0.9f);
     final Stats stats = mock(Stats.class);
+    when(stats.getStrengthModifier()).thenReturn(0.1f);
     final SimpleEnemy target = mock(SimpleEnemy.class);
+    when(target.getSoak(anyInt())).thenReturn(0);
 
     final Damage damage = new Player(inventory, stats).calculateDamage(target);
     assertEquals(10, damage.getAmount());
