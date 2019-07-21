@@ -14,17 +14,13 @@ public class SimpleEnemy extends Target {
 
   @Override
   protected int getSoak(final int totalDamage) {
-    final int soak;
-    soak = Math.round(
-      armor.getDamageSoak() *
-        (
-          ((float) buffs
-            .stream()
-            .mapToDouble(Buff::soakModifier)
-            .sum()) +
-            1f
-        )
-    );
-    return soak;
+    return Math.round(armor.getDamageSoak() * (soakModifier() + 1f));
+  }
+
+  private float soakModifier() {
+    return (float) buffs
+      .stream()
+      .mapToDouble(Buff::soakModifier)
+      .sum();
   }
 }
